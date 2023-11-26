@@ -1,7 +1,11 @@
+/*
+Copyright © 2023 NAME HERE <EMAIL ADDRESS>
+
+*/
 package main
 
-import "fmt"
+import "loco-moco/cmd"
 
 func main() {
-	fmt.Println("helllooo")
+	cmd.Execute()
 }
