@@ -1,2 +1,2 @@
-# loco-comit
+# loco-moco
 View local GIT contributions 
