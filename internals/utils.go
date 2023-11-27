@@ -3,7 +3,7 @@ package internals
 import (
 	"bufio"
 	"io"
-	"io/ioutil"
+	"os"
 	"strings"
 )
 
@@ -49,5 +49,5 @@ func sliceContains(slice []string, value string) bool {
 
 func dumpStringSliceToFile(repos []string, filePath string) {
 	content := strings.Join(repos, "\n")
-	ioutil.WriteFile(filePath, []byte(content), 0755)
+	os.WriteFile(filePath, []byte(content), 0755)
 }
