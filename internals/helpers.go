@@ -8,6 +8,8 @@ import (
 	"strings"
 )
 
+const daysInLastSixMonths = 183
+
 // scanGitFolders recursively looks for .git folders.
 func ScanGitFolders(folders []string, folder string) []string {
 	folder = strings.TrimSuffix(folder, "/")
@@ -65,4 +67,26 @@ func AddNewSliceElementsToFile(filePath string, newRepos []string) {
 	existingRepos := parseFileLinesToSlice(filePath)
 	repos := joinSlices(newRepos, existingRepos)
 	dumpStringSliceToFile(repos, filePath)
+}
+
+// ProcessRepos returns the commits made in the
+// past 6 months given an user email.
+func ProcessRepos(email string) map[int]int {
+	filepath := GetDotFilePath()
+	repos := parseFileLinesToSlice(filepath)
+	daysInMap := daysInLastSixMonths
+
+	commits := make(map[int]int, daysInMap)
+	for day := daysInMap; day > 0; day-- {
+		commits[day] = 0
+	}
+
+	for _, path := range repos {
+		commits = fillCommits(email, path, commits)
+	}
+	return commits
+}
+
+func PrintCommitStats(commits map[int]int) {
+	return
 }

@@ -1,5 +1,10 @@
 package cmd
 
+import (
+	"loco-moco/internals"
+)
+
 func stats(email string) {
-	print("stats")
+	commits := internals.ProcessRepos(email)
+	internals.PrintCommitStats(commits)
 }
