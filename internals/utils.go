@@ -3,6 +3,7 @@ package internals
 import (
 	"bufio"
 	"io"
+	"log"
 	"os"
 	"strings"
 	"time"
@@ -15,6 +16,7 @@ const outOfRange = 99999
 
 // parseFileLinesToSlice parses the content of a given file path.
 func parseFileLinesToSlice(filePath string) []string {
+
 	f := openFile(filePath)
 	defer f.Close()
 
@@ -26,10 +28,10 @@ func parseFileLinesToSlice(filePath string) []string {
 
 	if err := scanner.Err(); err != nil {
 		if err != io.EOF {
-			panic(err)
+			// panic(err)
+			log.Fatal(err)
 		}
 	}
-
 	return lines
 }
 
