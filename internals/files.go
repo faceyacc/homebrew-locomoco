@@ -7,7 +7,7 @@ import "os"
 func openFile(filePath string) *os.File {
 
 	// Allow to Append and Write Only to file.
-	f, err := os.OpenFile(filePath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0755)
+	f, err := os.OpenFile(filePath, os.O_APPEND|os.O_RDWR, 0755)
 	if err != nil {
 		// Create file if it doesn't exist
 		if os.IsNotExist(err) {

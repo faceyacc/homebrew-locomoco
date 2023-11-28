@@ -2,9 +2,10 @@ package internals
 
 import (
 	"bufio"
+	"fmt"
 	"io"
-	"log"
 	"os"
+	"sort"
 	"strings"
 	"time"
 
@@ -12,9 +13,10 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/object"
 )
 
-const outOfRange = 99999
+type column []int
 
-// parseFileLinesToSlice parses the content of a given file path.
+// parseFileLinesToSlice parses the content of a given file path
+// and returns a list of repos.
 func parseFileLinesToSlice(filePath string) []string {
 
 	f := openFile(filePath)
@@ -28,8 +30,7 @@ func parseFileLinesToSlice(filePath string) []string {
 
 	if err := scanner.Err(); err != nil {
 		if err != io.EOF {
-			// panic(err)
-			log.Fatal(err)
+			panic(err)
 		}
 	}
 	return lines
@@ -85,7 +86,6 @@ func fillCommits(email, path string, commits map[int]int) map[int]int {
 	offset := calcOffset()
 	err = commitIter.ForEach(func(c *object.Commit) error {
 		daysAgo := daysSinceDate(c.Author.When) + offset
-
 		if c.Author.Email != email {
 			return nil
 		}
@@ -146,4 +146,131 @@ func calcOffset() int {
 		offset = 1
 	}
 	return offset
+}
+
+// sortMapIntoSlice takes a map and returns a slice with the map
+// keys ordered by their integer value.
+func sortMapIntoSlice(m map[int]int) []int {
+	var keys []int
+	for k := range m {
+		keys = append(keys, k)
+	}
+
+	sort.Ints(keys)
+	return keys
+}
+
+// buildCols returns a map with rows and columns to print to cli
+// given an slice of key and commits.
+func buildCols(keys []int, commits map[int]int) map[int]column {
+	cols := make(map[int]column)
+	col := column{}
+
+	for _, k := range keys {
+		week := int(k / 7)
+		dayInWeek := k % 7
+
+		// Create a new column on Sunday.
+		if dayInWeek == 0 {
+			col = column{}
+		}
+		col = append(col, commits[k])
+
+		if dayInWeek == 6 {
+			cols[week] = col
+		}
+
+	}
+	return cols
+}
+
+// printCells prints cells of the graph.
+func printCells(cols map[int]column) {
+	printMonths()
+	for j := 6; j >= 0; j-- {
+		for i := weeksInLastSixMonths + 1; i >= 0; i-- {
+			if i == weeksInLastSixMonths+1 {
+				printDayCol(j)
+			}
+			if col, ok := cols[i]; ok {
+				if i == 0 && j == calcOffset()-1 {
+					printCell(col[j], true)
+					continue
+				} else {
+					if len(col) > j {
+						printCell(col[j], false)
+						continue
+					}
+				}
+			}
+			printCell(0, false)
+		}
+		fmt.Printf("\n")
+	}
+}
+
+// printMonths print the month names based on weeks.
+func printMonths() {
+	week := getBeginningOfDay(time.Now()).Add(-(daysInLastSixMonths * time.Hour * 24))
+	month := week.Month()
+	fmt.Printf("      ")
+	for {
+		if week.Month() != month {
+			fmt.Printf("%s", week.Month().String()[:3])
+			month = week.Month()
+		} else {
+			fmt.Printf("   ")
+		}
+
+		week = week.Add(7 * time.Hour * 24)
+		if week.After(time.Now()) {
+			break
+		}
+	}
+	fmt.Printf("\n")
+}
+
+// printDayCol prints the day name, given the day number.
+func printDayCol(day int) {
+	out := "    "
+	switch day {
+	case 1:
+		out = " Mon "
+	case 3:
+		out = " Wed "
+	case 5:
+		out = " Fri "
+	}
+	fmt.Printf(out)
+}
+
+func printCell(val int, today bool) {
+	escape := "\033[0;37;30m"
+
+	switch {
+	case val > 0 && val < 5:
+		escape = "\033[1;30;47m"
+	case val >= 5 && val < 10:
+		escape = "\033[1;30;43m"
+	case val >= 10:
+		escape = "\033[1;30;42m"
+	}
+
+	if today {
+		escape = "\033[1;37;45m"
+	}
+
+	if val == 0 {
+		fmt.Printf(escape + " - " + "\033[0m")
+		return
+	}
+
+	str := " %d "
+	switch {
+	case val >= 10:
+		str = " %d "
+	case val >= 100:
+		str = "%d"
+	}
+	fmt.Printf(escape+str+"\033[0m", val)
 }

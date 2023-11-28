@@ -9,6 +9,8 @@ import (
 )
 
 const daysInLastSixMonths = 183
+const weeksInLastSixMonths = 26
+const outOfRange = 99999
 
 // scanGitFolders recursively looks for .git folders.
 func ScanGitFolders(folders []string, folder string) []string {
@@ -53,12 +55,12 @@ func ScanGitFolders(folders []string, folder string) []string {
 // GetDotFilePath returns the path of the dotfile containing
 // the database of repo paths.
 func GetDotFilePath() string {
-	user, err := user.Current()
+	usr, err := user.Current()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	dotFile := user.HomeDir + "/.loco-moco-stats"
+	dotFile := usr.HomeDir + "/.locomocostats"
 	return dotFile
 }
 
@@ -72,8 +74,12 @@ func AddNewSliceElementsToFile(filePath string, newRepos []string) {
 // ProcessRepos returns the commits made in the
 // past 6 months given an user email.
 func ProcessRepos(email string) map[int]int {
+
+	// creates file at Users/Ty/.locomocostats
 	filepath := GetDotFilePath()
+
 	repos := parseFileLinesToSlice(filepath)
+
 	daysInMap := daysInLastSixMonths
 
 	commits := make(map[int]int, daysInMap)
@@ -88,5 +94,7 @@ func ProcessRepos(email string) map[int]int {
 }
 
 func PrintCommitStats(commits map[int]int) {
-	return
+	keys := sortMapIntoSlice(commits)
+	cols := buildCols(keys, commits)
+	printCells(cols)
 }

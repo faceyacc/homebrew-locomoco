@@ -47,10 +47,11 @@ func init() {
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
+	var folder string
+	var email string
 
-	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.loco-moco.yaml)")
-	rootCmd.PersistentFlags().String("add", "", "adds a folder to the list to scan.")
-	rootCmd.PersistentFlags().String("email", "", "adds a folder to the list to scan.")
+	rootCmd.PersistentFlags().StringVar(&folder, "add", "", "Adds a folder to the list to scan.")
+	rootCmd.PersistentFlags().StringVar(&email, "email", "justfacey@gmail.com", "The email to scan.")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
