@@ -66,9 +66,13 @@ func GetDotFilePath() string {
 
 // AddNewSliceElementsToFile stores a given slice of paths to the filesystem.
 func AddNewSliceElementsToFile(filePath string, newRepos []string) {
+
 	existingRepos := parseFileLinesToSlice(filePath)
+
 	repos := joinSlices(newRepos, existingRepos)
+
 	dumpStringSliceToFile(repos, filePath)
+
 }
 
 // ProcessRepos returns the commits made in the

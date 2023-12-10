@@ -18,7 +18,6 @@ type column []int
 // parseFileLinesToSlice parses the content of a given file path
 // and returns a list of repos.
 func parseFileLinesToSlice(filePath string) []string {
-
 	f := openFile(filePath)
 	defer f.Close()
 
