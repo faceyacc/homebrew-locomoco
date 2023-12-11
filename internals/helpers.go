@@ -87,6 +87,7 @@ func ProcessRepos(email string) map[int]int {
 	daysInMap := daysInLastSixMonths
 
 	commits := make(map[int]int, daysInMap)
+
 	for day := daysInMap; day > 0; day-- {
 		commits[day] = 0
 	}

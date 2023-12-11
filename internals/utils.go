@@ -185,13 +185,15 @@ func buildCols(keys []int, commits map[int]int) map[int]column {
 
 // printCells prints cells of the graph.
 func printCells(cols map[int]column) {
+	// fmt.Printf("PRINTING COLS: %v\n", len(cols[27]))
+	// fmt.Printf("PRINTING COLS: %v\n", len(cols[0]))
 	printMonths()
 	for j := 6; j >= 0; j-- {
 		for i := weeksInLastSixMonths + 1; i >= 0; i-- {
 			if i == weeksInLastSixMonths+1 {
 				printDayCol(j)
 			}
-			if col, ok := cols[i]; ok {
+			if col, ok := cols[i-1]; ok { // Make this colss[i-1]
 				if i == 0 && j == calcOffset()-1 {
 					printCell(col[j], true)
 					continue
@@ -231,7 +233,7 @@ func printMonths() {
 
 // printDayCol prints the day name, given the day number.
 func printDayCol(day int) {
-	out := "    "
+	out := "     "
 	switch day {
 	case 1:
 		out = " Mon "
