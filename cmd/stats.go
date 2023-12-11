@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"loco-moco/internals"
+	"locomoco/internals"
 )
 
 func stats(email string) {
