@@ -6,8 +6,10 @@ import (
 
 func stats(email string) {
 
-	commits := internals.ProcessRepos(email)
-
+	commits, ok := internals.ProcessRepos(email)
+	if !ok {
+		return
+	}
 	internals.PrintCommitStats(commits)
 
 }

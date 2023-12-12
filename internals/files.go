@@ -1,8 +1,32 @@
 package internals
 
 import (
+	"log"
 	"os"
+	"os/user"
+	"strings"
 )
+
+// GetCurrentDir returns path to current direcotry.
+func GetCurrentDir() string {
+	curDir, _ := os.Getwd()
+	dir := strings.Split(curDir, "/")
+	curDir = "./" + dir[len(dir)-1]
+	return curDir
+}
+
+// GetDotFilePath returns the path of the dotfile containing
+// the database of repo paths.
+func GetDotFilePath() string {
+
+	usr, err := user.Current()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	dotFile := usr.HomeDir + "/.locomocostats"
+	return dotFile
+}
 
 // openFile opens the file located at the given filePath.
 // If the file dosen't exist it creates one.

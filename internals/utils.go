@@ -191,7 +191,7 @@ func printCells(cols map[int]column) {
 			if i == weeksInLastSixMonths+1 {
 				printDayCol(j)
 			}
-			if col, ok := cols[i-1]; ok {
+			if col, ok := cols[i]; ok {
 				if i == 0 && j == calcOffset()-1 {
 					printCell(col[j], true)
 					continue

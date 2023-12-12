@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"os/user"
 	"strings"
+
+	"github.com/fatih/color"
 )
 
 const daysInLastSixMonths = 183
 const weeksInLastSixMonths = 26
 const outOfRange = 99999
+
+func RecursiveScanFolder(folder string) []string {
+	return ScanGitFolders(make([]string, 0), folder)
+}
 
 // scanGitFolders recursively looks for .git folders.
 func ScanGitFolders(folders []string, folder string) []string {
@@ -52,18 +57,6 @@ func ScanGitFolders(folders []string, folder string) []string {
 	return folders
 }
 
-// GetDotFilePath returns the path of the dotfile containing
-// the database of repo paths.
-func GetDotFilePath() string {
-	usr, err := user.Current()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	dotFile := usr.HomeDir + "/.locomocostats"
-	return dotFile
-}
-
 // AddNewSliceElementsToFile stores a given slice of paths to the filesystem.
 func AddNewSliceElementsToFile(filePath string, newRepos []string) {
 
@@ -77,7 +70,14 @@ func AddNewSliceElementsToFile(filePath string, newRepos []string) {
 
 // ProcessRepos returns the commits made in the
 // past 6 months given an user email.
-func ProcessRepos(email string) map[int]int {
+func ProcessRepos(email string) (map[int]int, bool) {
+
+	defer func() {
+		if err := recover(); err != nil {
+			c := color.New(color.FgYellow)
+			c.Print("\n\nLooks like you might've call locomoco from outside project directory. Try calling locomoco from your project directory.\n\n\n")
+		}
+	}()
 
 	// creates file at Users/Ty/.locomocostats
 	filepath := GetDotFilePath()
@@ -95,7 +95,8 @@ func ProcessRepos(email string) map[int]int {
 	for _, path := range repos {
 		commits = fillCommits(email, path, commits)
 	}
-	return commits
+
+	return commits, true
 }
 
 func PrintCommitStats(commits map[int]int) {

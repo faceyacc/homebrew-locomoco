@@ -5,6 +5,12 @@ go 1.21.2
 require github.com/spf13/cobra v1.8.0
 
 require (
+	github.com/fatih/color v1.16.0 // indirect
+	github.com/mattn/go-colorable v0.1.13 // indirect
+	github.com/mattn/go-isatty v0.0.20 // indirect
+)
+
+require (
 	dario.cat/mergo v1.0.0 // indirect
 	github.com/Microsoft/go-winio v0.6.1 // indirect
 	github.com/ProtonMail/go-crypto v0.0.0-20230828082145-3c4c8a2d2371 // indirect
