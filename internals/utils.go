@@ -250,13 +250,13 @@ func printCell(val int, today bool) {
 	case val > 0 && val < 5:
 		escape = "\033[1;30;47m"
 	case val >= 5 && val < 10:
-		escape = "\033[1;30;43m"
+		escape = "\033[1;30;104m"
 	case val >= 10:
-		escape = "\033[1;30;42m"
+		escape = "\033[1;30;45m"
 	}
 
 	if today {
-		escape = "\033[1;37;45m"
+		escape = "\033[1;37;41m"
 	}
 
 	if val == 0 {

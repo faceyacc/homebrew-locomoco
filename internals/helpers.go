@@ -75,7 +75,7 @@ func ProcessRepos(email string) (map[int]int, bool) {
 	defer func() {
 		if err := recover(); err != nil {
 			c := color.New(color.FgYellow)
-			c.Print("\n\nLooks like you might've call locomoco from outside project directory. Try calling locomoco from your project directory.\n\n\n")
+			c.Print("\n\nLooks like you might've call the 'locomoco' command from outside your project directory. Try calling 'locomoco' from your project directory.\n\n\n")
 		}
 	}()
 
