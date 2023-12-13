@@ -248,7 +248,7 @@ func printCell(val int, today bool) {
 
 	switch {
 	case val > 0 && val < 5:
-		escape = "\033[1;30;47m"
+		escape = "\033[1;30;107m"
 	case val >= 5 && val < 10:
 		escape = "\033[1;30;104m"
 	case val >= 10:
