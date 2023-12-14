@@ -92,6 +92,7 @@ func ProcessRepos(email string) (map[int]int, bool) {
 		commits[day] = 0
 	}
 
+	// repos = repos[9:]
 	for _, path := range repos {
 		commits = fillCommits(email, path, commits)
 	}
@@ -103,4 +104,14 @@ func PrintCommitStats(commits map[int]int) {
 	keys := sortMapIntoSlice(commits)
 	cols := buildCols(keys, commits)
 	printCells(cols)
+}
+
+func Contains(str string, lines []string) bool {
+	var contains bool = false
+	for _, a := range lines {
+		if str == a {
+			contains = true
+		}
+	}
+	return contains
 }
