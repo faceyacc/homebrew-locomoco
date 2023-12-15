@@ -64,7 +64,7 @@ func AddNewSliceElementsToFile(filePath string, newRepos []string) {
 
 	repos := joinSlices(newRepos, existingRepos)
 
-	dumpStringSliceToFile(repos, filePath)
+	DumpStringSliceToFile(repos, filePath)
 
 }
 

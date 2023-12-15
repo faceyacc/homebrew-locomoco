@@ -10,6 +10,13 @@ import (
 
 func TestShowMe(t *testing.T) {
 
+	checkAssert := func(t testing.TB, got, expected JSONData) {
+		t.Helper()
+		if !reflect.DeepEqual(got, expected) {
+			t.Errorf("Got %v, but expected, %v", got, expected)
+		}
+	}
+
 	t.Run("Get user repos", func(t *testing.T) {
 		res, _ := http.Get("https://api.github.com/users/faceyacc/repos")
 		body, _ := io.ReadAll(res.Body)
@@ -18,12 +25,25 @@ func TestShowMe(t *testing.T) {
 		var data JSONData
 		json.Unmarshal(body, &data.Items)
 
-		got := ShowMeRepos()
+		got := ShowMeRepos("faceyacc")
 		expected := data
 
-		if !reflect.DeepEqual(got, expected) {
-			t.Errorf("Got %v, but expected, %v", got, expected)
-		}
+		checkAssert(t, got, expected)
+	})
+
+	t.Run("Get repos by username", func(t *testing.T) {
+		res, _ := http.Get("https://api.github.com/users/sirupsen/repos")
+		body, _ := io.ReadAll(res.Body)
+		defer res.Body.Close()
+
+		var data JSONData
+		json.Unmarshal(body, &data.Items)
+
+		got := ShowMeRepos("sirupsen")
+		expected := data
+
+		checkAssert(t, got, expected)
+
 	})
 
 }

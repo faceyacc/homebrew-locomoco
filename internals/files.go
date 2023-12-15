@@ -28,6 +28,19 @@ func GetDotFilePath() string {
 	return dotFile
 }
 
+// GetShowMeDotFilePath returns the path of the dotfile containing
+// the username for GitHub.
+func GetShowMeDotFilePath() string {
+
+	usr, err := user.Current()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	dotFile := usr.HomeDir + "/.locomocoshowme"
+	return dotFile
+}
+
 // openFile opens the file located at the given filePath.
 // If the file dosen't exist it creates one.
 func openFile(filePath string) *os.File {

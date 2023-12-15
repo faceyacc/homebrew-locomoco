@@ -4,6 +4,7 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/spf13/cobra"
@@ -24,6 +25,7 @@ to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		folder, _ := cmd.Flags().GetString("add")
 		email, _ := cmd.Flags().GetString("email")
+		fmt.Printf("PRINT FOLDER NAME %v AND EMAIL %v\n\n", folder, email)
 
 		if folder != "" {
 			scan(folder)

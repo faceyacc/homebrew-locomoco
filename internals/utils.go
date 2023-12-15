@@ -56,7 +56,7 @@ func sliceContains(slice []string, value string) bool {
 }
 
 // dumpStringSliceToFile writes content to filePath.
-func dumpStringSliceToFile(repos []string, filePath string) {
+func DumpStringSliceToFile(repos []string, filePath string) {
 	content := strings.Join(repos, "\n")
 	os.WriteFile(filePath, []byte(content), 0755)
 }
