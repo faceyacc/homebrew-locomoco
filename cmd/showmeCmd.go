@@ -21,6 +21,7 @@ type Item struct {
 	FullName        string `json:"full_name"`
 	Description     string `json:"description"`
 	StargazersCount int    `json:"stargazers_count"`
+	PushedAt        string `json:"pushed_at"`
 }
 
 type JSONData struct {
@@ -37,7 +38,6 @@ func getUser(file string) string {
 
 func SetUsername(userName string) {
 
-	// Create a dotfile
 	dotFile := internals.GetShowMeDotFilePath()
 
 	f, err := os.Create(dotFile)
@@ -45,16 +45,8 @@ func SetUsername(userName string) {
 		fmt.Print(err)
 	}
 
-	// append name to dot file
 	_, err = f.Write([]byte(userName))
 }
-
-// TODO:
-// 1. Get dotfil
-// 2. If the dotfile exists return username (string)
-// 3. If the dotfile does not exist tell the user that
-// 4. They have to first set their GH user name using
-//  the --user command.
 
 func GetUserName() string {
 	var userName string
@@ -106,11 +98,11 @@ func ShowMeRepos(userName string) JSONData {
 func printData(data JSONData) {
 	log.Printf("Repos found: %d", len(data.Items)-1)
 
-	const format = "%v\t%v\t%v\t%v\t\n"
+	const format = "%v\t%v\t%v\t%v\t%v\t\n"
 
 	tw := new(tabwriter.Writer).Init(os.Stdout, 0, 8, 2, ' ', 0)
-	fmt.Fprintf(tw, format, "Repo", "Stars", "Created at", "Description")
-	fmt.Fprintf(tw, format, "----------", "-----", "----------", "----------")
+	fmt.Fprintf(tw, format, "Repo", "Stars", "Created at", "Last Push", "Description")
+	fmt.Fprintf(tw, format, "----------", "-----", "----------", "----------", "----------")
 
 	for _, i := range data.Items {
 		desc := i.Description
@@ -121,7 +113,11 @@ func printData(data JSONData) {
 		if err != nil {
 			fmt.Print(err)
 		}
-		fmt.Fprintf(tw, format, i.FullName, i.StargazersCount, t.Year(), desc)
+		p, err := time.Parse(time.RFC3339, i.PushedAt)
+		if err != nil {
+			fmt.Print(err)
+		}
+		fmt.Fprintf(tw, format, i.FullName, i.StargazersCount, t.Year(), p.Format("Mon Jan 2 15:04:05 UTC 2006"), desc)
 	}
 	tw.Flush()
 }
