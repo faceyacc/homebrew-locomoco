@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"bufio"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -28,15 +29,37 @@ type JSONData struct {
 	Items []Item
 }
 
-func getUser(file string) string {
-	data, err := os.ReadFile(file)
+func getUser(file string) (email, user string) {
+
+	f, err := os.Open(file)
 	if err != nil {
 		fmt.Print(err)
 	}
-	return string(data)
+	defer f.Close()
+
+	scanner := bufio.NewScanner(f)
+
+	var line int
+
+	for scanner.Scan() {
+		if line == 0 {
+			email = scanner.Text()
+		}
+		if line == 1 {
+			user = scanner.Text()
+		}
+		line++
+	}
+
+	if err := scanner.Err(); err != nil {
+		log.Fatalln(err)
+	}
+
+	return email, user
 }
 
-func SetUsername(userName string) {
+func SetUserInfo(email, userName string) {
+	lines := []string{email, userName}
 
 	dotFile := internals.GetShowMeDotFilePath()
 
@@ -44,24 +67,29 @@ func SetUsername(userName string) {
 	if err != nil {
 		fmt.Print(err)
 	}
+	defer f.Close()
 
-	_, err = f.Write([]byte(userName))
+	for _, line := range lines {
+		_, err := f.WriteString(line + "\n")
+		if err != nil {
+			fmt.Print(err)
+		}
+	}
 }
 
-func GetUserName() string {
-	var userName string
+func GetUserInfo() (email, userName string) {
 
 	dotFile := internals.GetShowMeDotFilePath()
 
 	if _, err := os.Stat(dotFile); err == nil {
 
-		userName = getUser(dotFile)
+		email, userName = getUser(dotFile)
 
 	} else if errors.Is(err, os.ErrNotExist) {
 
-		fmt.Println("You haven't gave us your GH username...")
+		fmt.Println("Looks like you haven't set your email and username...")
 	}
-	return userName
+	return email, userName
 
 }
 

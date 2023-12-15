@@ -1,15 +1,15 @@
 /*
-Copyright © 2023 NAME HERE <EMAIL ADDRESS>
+Copyright © 2023 NAME HERE justfacey@gmail.com
 */
 package cmd
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/spf13/cobra"
 )
 
-// rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "loco-moco",
 	Short: "A brief description of your application",
@@ -24,18 +24,31 @@ to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		folder, _ := cmd.Flags().GetString("add")
 		email, _ := cmd.Flags().GetString("email")
+		user, _ := cmd.Flags().GetString("user")
 
 		if folder != "" {
 			scan(folder)
 			return
 		}
 
+		if email == "" || user == "" {
+			// 1. Check to see an locomocoshowme file exist and
+			// and return email.
+
+			email, _ = GetUserInfo()
+			fmt.Print(email)
+		} else if email != "" && user != "" {
+			// 1. Set both email AND user name
+			// 2. Run stats(email)
+
+			SetUserInfo(email, user)
+			// stats(email)
+		}
+
 		stats(email)
 	},
 }
 
-// Execute adds all child commands to the root command and sets flags appropriately.
-// This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
 	err := rootCmd.Execute()
 	if err != nil {
@@ -44,16 +57,14 @@ func Execute() {
 }
 
 func init() {
-	// Here you will define your flags and configuration settings.
-	// Cobra supports persistent flags, which, if defined here,
-	// will be global for your application.
 	var folder string
 	var email string
+	var user string
 
 	rootCmd.PersistentFlags().StringVar(&folder, "add", "", "Adds a folder to the list to scan.")
-	rootCmd.PersistentFlags().StringVar(&email, "email", "justfacey@gmail.com", "The email to scan.")
+	rootCmd.PersistentFlags().StringVar(&email, "email", "", "The email to scan.")
+	rootCmd.PersistentFlags().StringVar(&user, "user", "", "Show list of repos for given user")
 
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
+	// rootCmd.PersistentFlags().StringVar(&email, "email", "justfacey@gmail.com", "The email to scan.")
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
