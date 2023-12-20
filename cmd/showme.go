@@ -4,6 +4,8 @@ Copyright © 2023 NAME HERE justfacey@gmail.com
 package cmd
 
 import (
+	"locomoco/internals"
+
 	"github.com/spf13/cobra"
 )
 
@@ -12,6 +14,7 @@ var showmeCmd = &cobra.Command{
 	Short: "Shows you a list of your repos...",
 	Long:  `Shows you a list of your repos with data (i.e. Name, Description, Created At)`,
 	Run: func(cmd *cobra.Command, args []string) {
+		dotFile := internals.GetShowMeDotFilePath()
 		newUser, _ := cmd.Flags().GetString("newUser")
 		user, _ := cmd.Flags().GetString("user")
 
@@ -19,7 +22,7 @@ var showmeCmd = &cobra.Command{
 			user = newUser
 
 		} else if user == "" {
-			_, user = GetUserInfo()
+			_, user = GetUserInfo(dotFile)
 		}
 
 		data := ShowMeRepos(user)
@@ -33,5 +36,4 @@ func init() {
 	var newUser string
 
 	showmeCmd.PersistentFlags().StringVar(&newUser, "newUser", "", "Show list of repos for given user")
-
 }

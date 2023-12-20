@@ -4,7 +4,7 @@ Copyright © 2023 NAME HERE justfacey@gmail.com
 package cmd
 
 import (
-	"fmt"
+	"locomoco/internals"
 	"os"
 
 	"github.com/spf13/cobra"
@@ -19,9 +19,9 @@ examples and usage of using your application. For example:
 Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
+
 	Run: func(cmd *cobra.Command, args []string) {
+		dotFile := internals.GetShowMeDotFilePath()
 		folder, _ := cmd.Flags().GetString("add")
 		email, _ := cmd.Flags().GetString("email")
 		user, _ := cmd.Flags().GetString("user")
@@ -32,17 +32,12 @@ to quickly create a Cobra application.`,
 		}
 
 		if email == "" || user == "" {
-			// 1. Check to see an locomocoshowme file exist and
-			// and return email.
 
-			email, _ = GetUserInfo()
-			fmt.Print(email)
+			email, _ = GetUserInfo(dotFile)
 		} else if email != "" && user != "" {
-			// 1. Set both email AND user name
-			// 2. Run stats(email)
 
 			SetUserInfo(email, user)
-			// stats(email)
+
 		}
 
 		stats(email)
@@ -65,6 +60,5 @@ func init() {
 	rootCmd.PersistentFlags().StringVar(&email, "email", "", "The email to scan.")
 	rootCmd.PersistentFlags().StringVar(&user, "user", "", "Show list of repos for given user")
 
-	// rootCmd.PersistentFlags().StringVar(&email, "email", "justfacey@gmail.com", "The email to scan.")
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

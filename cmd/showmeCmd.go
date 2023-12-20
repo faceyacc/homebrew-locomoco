@@ -12,9 +12,10 @@ import (
 	"os"
 	"text/tabwriter"
 	"time"
+
+	"github.com/fatih/color"
 )
 
-// Item represents a single repo data structure
 type Item struct {
 	ID              int    `json:"id"`
 	CreatedAt       string `json:"created_at"`
@@ -38,7 +39,6 @@ func getUser(file string) (email, user string) {
 	defer f.Close()
 
 	scanner := bufio.NewScanner(f)
-
 	var line int
 
 	for scanner.Scan() {
@@ -77,9 +77,9 @@ func SetUserInfo(email, userName string) {
 	}
 }
 
-func GetUserInfo() (email, userName string) {
+func GetUserInfo(dotFile string) (email, userName string) {
 
-	dotFile := internals.GetShowMeDotFilePath()
+	// dotFile := internals.GetShowMeDotFilePath()
 
 	if _, err := os.Stat(dotFile); err == nil {
 
@@ -87,7 +87,11 @@ func GetUserInfo() (email, userName string) {
 
 	} else if errors.Is(err, os.ErrNotExist) {
 
-		fmt.Println("Looks like you haven't set your email and username...")
+		c_yellow := color.New(color.FgYellow)
+		c_blue := color.New(color.FgHiBlue)
+		c_yellow.Print("\n\nLooks like you haven't set your email and username....")
+		c_blue.Print("\nSet your email and GitHub user/org name like the following:\n")
+		c_blue.Print("\n\n'locomoco --email youremail.net --user yourGHusername'\n\n\n")
 	}
 	return email, userName
 

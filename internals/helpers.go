@@ -79,7 +79,7 @@ func ProcessRepos(email string) (map[int]int, bool) {
 		}
 	}()
 
-	// creates file at Users/Ty/.locomocostats
+	// TODO
 	filepath := GetDotFilePath()
 
 	repos := parseFileLinesToSlice(filepath)
@@ -92,7 +92,6 @@ func ProcessRepos(email string) (map[int]int, bool) {
 		commits[day] = 0
 	}
 
-	// repos = repos[9:]
 	for _, path := range repos {
 		commits = fillCommits(email, path, commits)
 	}
