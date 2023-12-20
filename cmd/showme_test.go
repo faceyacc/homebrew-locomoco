@@ -46,6 +46,12 @@ func TestGetUser(t *testing.T) {
 		}
 	}
 
+	assertError := func(t testing.TB, got, expected error) {
+		if got != expected {
+			t.Errorf("Got %v error but wanted %v error", got, expected)
+		}
+	}
+
 	usr, err := user.Current()
 	if err != nil {
 		log.Fatal(err)
@@ -57,18 +63,14 @@ func TestGetUser(t *testing.T) {
 		userName = "testuser" + "\n"
 	)
 
-	t.Run("file exists", func(t *testing.T) {
-		fileName = usr.HomeDir + "/.test"
+	t.Run("file does not exists", func(t *testing.T) {
+		fileName = "TEST_FILE_DOES_NOT_EXIST"
 		email = "test@gmail.com" + "\n"
 		userName = "testuser" + "\n"
 
-		filet.File(t, fileName, email+userName)
+		_, _, gotErr := getUser(fileName)
 
-		exist := filet.Exists(t, fileName)
-
-		if exist == false {
-			t.Fatal("File does not exist")
-		}
+		assertError(t, gotErr, ErrFileNotExist)
 
 	})
 
@@ -77,7 +79,7 @@ func TestGetUser(t *testing.T) {
 
 		filet.File(t, fileName, email+userName)
 
-		gotEmail, _ := getUser(fileName)
+		gotEmail, _, _ := getUser(fileName)
 		expectedEmail := email
 
 		checkAssert(t, gotEmail, expectedEmail)
@@ -88,7 +90,7 @@ func TestGetUser(t *testing.T) {
 
 		filet.File(t, fileName, email+userName)
 
-		_, gotUsername := getUser(fileName)
+		_, gotUsername, _ := getUser(fileName)
 		expectedUsername := userName
 
 		checkAssert(t, gotUsername, expectedUsername)

@@ -30,11 +30,15 @@ type JSONData struct {
 	Items []Item
 }
 
-func getUser(file string) (email, user string) {
+// getUser returns email and userName stored in
+// locomocostats dotfile.
+func getUser(file string) (string, string, error) {
 
+	var email string
+	var user string
 	f, err := os.Open(file)
-	if err != nil {
-		fmt.Print(err)
+	if errors.Is(err, os.ErrNotExist) {
+		return "", "", ErrFileNotExist
 	}
 	defer f.Close()
 
@@ -55,7 +59,7 @@ func getUser(file string) (email, user string) {
 		log.Fatalln(err)
 	}
 
-	return email, user
+	return email, user, nil
 }
 
 func SetUserInfo(email, userName string) {
@@ -79,11 +83,12 @@ func SetUserInfo(email, userName string) {
 
 func GetUserInfo(dotFile string) (email, userName string) {
 
-	// dotFile := internals.GetShowMeDotFilePath()
-
 	if _, err := os.Stat(dotFile); err == nil {
 
-		email, userName = getUser(dotFile)
+		email, userName, err = getUser(dotFile)
+		if err != nil {
+			fmt.Print(err)
+		}
 
 	} else if errors.Is(err, os.ErrNotExist) {
 
