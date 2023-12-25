@@ -27,22 +27,18 @@ go get github.com/faceyacc/loco-moco
 Add projects to .locomoco
 ```bash
 locomoco --add User/fakeName/project
-}
 ```
 Initalize email and account name associated with your GitHub account
 ```bash
 locomoco --email fake@fake.com --user fakeacc
-}
 ```
 To get a quick snapshot of repos
 ```bash
 locomoco showme
-}
 ```
 To get a quick snapshot of repos for a different GitHub user/organization
 ```bash
 locomoco showme --newUser newFakeAcc
-}
 ```
 ## Roadmap
 
