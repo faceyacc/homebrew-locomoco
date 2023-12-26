@@ -20,11 +20,11 @@ release:
     owner: faceyacc
     name: locomoco
 brews:
-- tap:
+- name: locomoco
+  homepage: "https://github.com/faceyacc/homebrew-tools"
+  repository:
     owner: faceyacc
     name: homebrew-tools
-  name: locomoco
-  homepage: "https://github.com/faceyacc/locomoco"
   description: "A simple GitHub contribution and repo viewer."
   folder: Formula
   install: |
