@@ -44,14 +44,3 @@ changelog:
     exclude:
       - "^docs:"
       - "^test:"
-
-# brews:
-#   - name: locomoco
-#     description: GitHub contribution visualizer
-#     homepage: https://github.com/faceyacc/homebrew-locomoco
-#     tap:
-#       owner: faceyacc
-#       name: homebrew-locomoco
-#     commit_author:
-#       name: faceyacc
-#       email: justfacey@gmail.com
