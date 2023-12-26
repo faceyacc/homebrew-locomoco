@@ -17,7 +17,7 @@ Install locomoco with Homebrew
 brew install faceyacc/tools/locomoco
 ```
 
-Install locomoco with locally with Go
+Install locomoco locally with Go
 ```bash
 go get github.com/faceyacc/loco-moco
 ```
