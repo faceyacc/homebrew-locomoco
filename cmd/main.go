@@ -22,6 +22,7 @@ to quickly create a Cobra application.`,
 
 	Run: func(cmd *cobra.Command, args []string) {
 		dotFile := internals.GetShowMeDotFilePath()
+
 		folder, _ := cmd.Flags().GetString("add")
 		email, _ := cmd.Flags().GetString("email")
 		user, _ := cmd.Flags().GetString("user")

@@ -95,5 +95,8 @@ func TestGetUser(t *testing.T) {
 
 		checkAssert(t, gotUsername, expectedUsername)
 	})
-
 }
+
+// TODO create TestGetUserInfo()
+
+// TODO create TestSetUserInfo()

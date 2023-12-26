@@ -3,13 +3,13 @@ module locomoco //module loco-moco
 go 1.21.2
 
 require (
+	github.com/Flaque/filet v0.0.0-20201012163910-45f684403088
 	github.com/fatih/color v1.16.0
 	github.com/spf13/cobra v1.8.0
 )
 
 require (
 	dario.cat/mergo v1.0.0 // indirect
-	github.com/Flaque/filet v0.0.0-20201012163910-45f684403088 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
@@ -31,7 +31,7 @@ require (
 	github.com/kevinburke/ssh_config v1.2.0 // indirect
 	github.com/pjbgf/sha1cd v0.3.0 // indirect
 	github.com/sergi/go-diff v1.3.1 // indirect
-	github.com/spf13/afero v1.11.0
+	github.com/spf13/afero v1.11.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
 	golang.org/x/crypto v0.17.0 // indirect
