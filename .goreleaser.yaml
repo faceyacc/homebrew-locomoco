@@ -51,7 +51,4 @@ brews:
   repository:
     owner: faceyacc
     name: homebrew-tools
-    commit_author:
-      name: faceyacc
-      email: justfacey@gmail.com
     folder: Formula    
