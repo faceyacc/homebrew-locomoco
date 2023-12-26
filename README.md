@@ -4,10 +4,6 @@
 Locomoco is an light-weight tool designed to provide GitHub users with a swift and intuitive way to visualize their contribution history and Github activity. Simply run `locomoco` to see git contibutions in your CLI or `locomoco showme` to see a list of repos you've contributed to.
 
 
-## Demo
-
-Insert gif or link to demo
-
 
 ## Installation
 
@@ -48,6 +44,9 @@ locomoco showme --newUser newFakeAcc
 
 - Bettter formatting for `showme` command.
 
+## Demo
+
+![](https://github.com/faceyacc/locomoco/blob/main/locomoco.gif)
 
 ## Support
 
