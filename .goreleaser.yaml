@@ -44,3 +44,9 @@ changelog:
     exclude:
       - "^docs:"
       - "^test:"
+brews:
+- name: locomoco
+  homepage: https://github.com/faceyacc/homebrew-tools
+  tap:
+    owner: faceyacc
+    name: homebrew-tools
