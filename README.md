@@ -14,7 +14,7 @@ Insert gif or link to demo
 Install locomoco with Homebrew
 
 ```bash
-homebrew locomoco
+brew install faceyacc/tools/locomoco
 ```
 
 Install locomoco with locally with Go
