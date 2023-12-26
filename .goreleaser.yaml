@@ -51,4 +51,3 @@ brews:
   repository:
     owner: faceyacc
     name: homebrew-tools
-    folder: Formula    
