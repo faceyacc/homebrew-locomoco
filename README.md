@@ -50,5 +50,5 @@ locomoco showme --newUser newFakeAcc
 
 ## Support
 
-For support, email justfacey@gmail.com or join our Slack channel.
+For support, email me at justfacey@gmail.com.
 
