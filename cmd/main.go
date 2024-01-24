@@ -4,6 +4,7 @@ Copyright © 2023 NAME HERE justfacey@gmail.com
 package cmd
 
 import (
+	"fmt"
 	"locomoco/internals"
 	"os"
 
@@ -33,15 +34,19 @@ to quickly create a Cobra application.`,
 		}
 
 		if email == "" || user == "" {
-
 			email, _ = GetUserInfo(dotFile)
+			if !internals.DotFileExist() {
+				fmt.Fprintf(os.Stderr, "No locomocostats file initalized")
+				os.Exit(1)
+			}
+
+			// Scan user's commits
+			stats(email)
+
 		} else if email != "" && user != "" {
-
 			SetUserInfo(email, user)
-
 		}
 
-		stats(email)
 	},
 }
 

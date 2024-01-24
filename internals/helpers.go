@@ -79,7 +79,6 @@ func ProcessRepos(email string) (map[int]int, bool) {
 		}
 	}()
 
-	// TODO
 	filepath := GetDotFilePath()
 
 	repos := parseFileLinesToSlice(filepath)
@@ -102,6 +101,7 @@ func ProcessRepos(email string) (map[int]int, bool) {
 func PrintCommitStats(commits map[int]int) {
 	keys := sortMapIntoSlice(commits)
 	cols := buildCols(keys, commits)
+
 	printCells(cols)
 }
 

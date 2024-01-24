@@ -1,6 +1,7 @@
 package internals
 
 import (
+	"errors"
 	"log"
 	"os"
 	"os/user"
@@ -13,6 +14,18 @@ func GetCurrentDir() string {
 	dir := strings.Split(curDir, "/")
 	curDir = "./" + dir[len(dir)-1]
 	return curDir
+}
+
+func DotFileExist() bool {
+	usr, err := user.Current()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	dotFile := usr.HomeDir + "/.locomocostats"
+
+	_, err = os.Stat(dotFile)
+	return !errors.Is(err, os.ErrNotExist)
 }
 
 // GetDotFilePath returns the path of the dotfile containing
