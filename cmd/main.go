@@ -1,5 +1,5 @@
 /*
-Copyright © 2023 NAME HERE justfacey@gmail.com
+Copyright © 2023 Ty Facey justfacey@gmail.com
 */
 package cmd
 
@@ -13,13 +13,12 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:   "loco-moco",
-	Short: "A brief description of your application",
-	Long: `A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
+	Short: "Quick way to view your GitHub contributions.",
+	Long: `locomoco is a quick and easy way to view you recent git
+contributions without having to leave you terminal or IDE.
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+Now, go push some code!
+`,
 
 	Run: func(cmd *cobra.Command, args []string) {
 		dotFile := internals.GetShowMeDotFilePath()

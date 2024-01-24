@@ -1,5 +1,5 @@
 /*
-Copyright © 2023 NAME HERE justfacey@gmail.com
+Copyright © 2023 Ty Facey justfacey@gmail.com
 */
 package cmd
 
