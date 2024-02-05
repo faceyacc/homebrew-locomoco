@@ -38,11 +38,13 @@ locomoco showme --newUser newFakeAcc
 ```
 ## Roadmap
 
-- Additional Unit test.
+- [ ] Additional Unit test.
 
-- Allow users to run `locomoco` command from outside an ititalize project space.
+- [ ] Allow users to run `locomoco` command from outside an ititalize project space.
 
-- Bettter formatting for `showme` command.
+- [ ] Bettter formatting for `showme` command.
+
+- [ ] Fix the "Sunday" bug.
 
 ## Demo
 
