@@ -130,19 +130,19 @@ func calcOffset() int {
 
 	switch weekday {
 	case time.Sunday:
-		offset = 7
+		offset = 0
 	case time.Monday:
-		offset = 6
-	case time.Tuesday:
-		offset = 5
-	case time.Wednesday:
-		offset = 4
-	case time.Thursday:
-		offset = 3
-	case time.Friday:
-		offset = 2
-	case time.Saturday:
 		offset = 1
+	case time.Tuesday:
+		offset = 2
+	case time.Wednesday:
+		offset = 3
+	case time.Thursday:
+		offset = 4
+	case time.Friday:
+		offset = 5
+	case time.Saturday:
+		offset = 6
 	}
 	return offset
 }
@@ -192,7 +192,7 @@ func printCells(cols map[int]column) {
 				printDayCol(j)
 			}
 			if col, ok := cols[i]; ok {
-				if i == 0 && j == calcOffset()-1 {
+				if i == 0 && j == calcOffset() {
 					printCell(col[j], true)
 					continue
 				} else {
