@@ -1,6 +1,6 @@
 module locomoco //module loco-moco
 
-go 1.21.2
+go 1.21.6
 
 require (
 	github.com/Flaque/filet v0.0.0-20201012163910-45f684403088
