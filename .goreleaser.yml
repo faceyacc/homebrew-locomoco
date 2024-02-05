@@ -29,11 +29,7 @@ changelog:
       - '^test:'
 brews:
 - name: locomoco
-  # goarm: 6
   homepage: https://github.com/faceyacc/homebrew-tools
   tap:
     owner: faceyacc
     name: homebrew-tools
-# dockers:
-#   - image_templates:
-#     - "scraly/gophersay:{{ .Tag }}"
