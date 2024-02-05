@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-// GetCurrentDir returns path to current direcotry.
+// GetCurrentDir returns path to current direcotry
 func GetCurrentDir() string {
 	curDir, _ := os.Getwd()
 	dir := strings.Split(curDir, "/")
