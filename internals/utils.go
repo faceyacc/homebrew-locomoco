@@ -148,7 +148,7 @@ func calcOffset() int {
 }
 
 // sortMapIntoSlice takes a map and returns a slice with the map
-// keys ordered by their integer value.
+// keys ordered by their integer value
 func sortMapIntoSlice(m map[int]int) []int {
 	var keys []int
 	for k := range m {
