@@ -28,11 +28,11 @@ changelog:
       - '^docs:'
       - '^test:'
 brews:
-- name: gophersay
+- name: locomoco
   # goarm: 6
   homepage: https://github.com/faceyacc/homebrew-tools
   tap:
-    owner: scraly
+    owner: faceyacc
     name: homebrew-tools
 # dockers:
 #   - image_templates:
