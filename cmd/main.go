@@ -12,7 +12,7 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "loco-moco",
+	Use:   "locomoco",
 	Short: "Quick way to view your GitHub contributions.",
 	Long: `locomoco is a quick and easy way to view you recent git
 contributions without having to leave you terminal or IDE.
