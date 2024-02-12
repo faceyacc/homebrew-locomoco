@@ -1,4 +1,4 @@
-module locomoco //module loco-moco
+module locomoco //module locomoco
 
 go 1.21.6
 
