@@ -24,6 +24,9 @@ func DotFileExist() bool {
 
 	dotFile := usr.HomeDir + "/.locomocostats"
 
+	// TODO: print out the local path of the dotfile using logger
+	fmt.Println(".locomocostats stored: ", dotFile)
+
 	_, err = os.Stat(dotFile)
 	return !errors.Is(err, os.ErrNotExist)
 }

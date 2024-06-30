@@ -38,6 +38,8 @@ locomoco showme --newUser newFakeAcc
 ```
 ## Roadmap
 
+- [ ] Add command to clear out added repos in .locomocostats
+
 - [ ] Additional Unit test.
 
 - [ ] Allow users to run `locomoco` command from outside an ititalize project space.
@@ -53,4 +55,3 @@ locomoco showme --newUser newFakeAcc
 ## Support
 
 For support, email me at justfacey@gmail.com.
-
